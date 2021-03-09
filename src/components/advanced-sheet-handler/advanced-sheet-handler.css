@@ -1,0 +1,60 @@
+div.sheetHandler ul.allDetHeader li.li-right-arrow{
+    display: none;
+}
+
+div.sheetHandler ul.allDetHeader li.li-right-arrow a i.allDetheader-right-arrow{
+    font-size: 1.2em;
+    margin-right: 0.5em;
+}
+
+div.sheetHandler ul.allDetHeader li.li-left-arrow a i.allDetheader-left-arrow{
+	font-size: 1.2em;
+    margin-left: 0.5em; 
+}
+
+div.sheetHandler div.row div.blocker {
+	display: none;
+	background-color: lightgrey;
+
+}
+
+div.sheetHandler div.row div.blocker i.fa-exclamation-triangle{
+    position:relative;
+    /*text-align: center;*/
+
+}
+div.viewer {
+    display: block;
+    text-align: center;
+}
+
+div.viewer div.blocker i.fa-exclamation-triangle{
+    display: inline;
+    top: 50%;
+}
+
+div.sheetHandler div.nglView div.downloadPdb{
+	background-color: pink;
+}
+
+table div.sheetHandler ul.allDetHeader li{
+    font-size: 1.2em;
+    cursor: pointer;
+}
+table div.sheetHandler ul.allDetHeader li span {
+    color: grey;
+    font-size: 0.75em;
+}
+
+table div.shortentooltip {
+    position: fixed;
+    /*display: block;*/
+    visibility: hidden;
+    /*display: inline-block;*/
+    background-color: lightgrey;
+    border: 3px solid #73AD21;
+}
+
+table div.sheetHandler ul.allDetHeader {
+    width: 601px;
+}
