@@ -42,8 +42,10 @@ export class AdvancedSheet{
 
   	componentDidUpdate(){
   		console.warn("advance-sheet did update");
-  		let table = this.host.getElementsByClassName('infos')[0]
-  		this.buildView.emit({"file":this.pdbFile,"tableHeight":table.clientHeight,"tableWidth":table.clientWidth})
+  		let table = this.host.getElementsByClassName('infos')[0] as HTMLElement;
+  		this.buildView.emit({"file":this.pdbFile,
+		  					 "tableHeight":table.clientHeight,
+							 "tableWidth":table.clientWidth})
   		let tooltipable = this.host.getElementsByClassName("tooltipable");
 		for(let i = 0; i<tooltipable.length; i++){
 				//let text = tooltipable[i].innerHTML;
@@ -107,10 +109,20 @@ export class AdvancedSheet{
 			let properties = this.data["data"][0]
 			let keys = Object.keys(properties)
 			row = keys.map((e) => {
+				if(e=="color"){
+					console.log("this is color", e);
+					console.dir(properties[e]);
+					const styColor = `rgb(${properties[e][0]},${properties[e][1]},${properties[e][2]})`;
+					console.log(styColor);
+					return <tr><td>{e}</td>
+						<td><div class="rectangle" style={{'background-color' : styColor}}>							
+						</div></td></tr>
+				}
 				if(e!="pdbFile"){
+					const _ = e.replace('_',' ');
 					if(properties[e]){
 						if(properties[e].length){
-							return <tr><td >{e}</td>{this.truncateAndTooltipText(properties[e])}</tr>
+							return <tr><td >{_}</td>{this.truncateAndTooltipText(properties[e])}</tr>
 
 							/*if(properties[e].length>this.max_char){
 								//this.truncateText(properties[e])
@@ -121,7 +133,7 @@ export class AdvancedSheet{
 							}*/
 						}
 						else{
-							return <tr><td>{e}</td><td class="sheettd">{properties[e]}</td></tr>
+							return <tr><td>{_}</td><td class="sheettd">{properties[e]}</td></tr>
 						}
 					}
 				}

@@ -42,6 +42,7 @@ declare global {
       max_window?: number;
       multi_view?: boolean;
       nglview?: boolean;
+      no_pdb_mention?: boolean;
       pdbFile?: string;
     }
   }

@@ -22,9 +22,11 @@ export class AdvancedSheetHandler{
 	@State() visible_start = 0;
 	@Prop() nglview: boolean;
 	@Prop() multi_view: boolean;
+	@Prop() no_pdb_mention: boolean;
 	@State() deleteOrClickNav: boolean = false;  // boolean to know if a sheet has been added
 	@Prop() max_char = 40;
-
+	@State() tableHeight = 200;
+	@State() tableWidth = 200;
 	@Listen('dataDisplayed')
 	updateHandler(data){
 		console.log("dataDisplayed")
@@ -33,7 +35,7 @@ export class AdvancedSheetHandler{
 		let self = this;
 		let actives = this.host.getElementsByClassName('active');
 		let to_update = this.host.getElementsByClassName('allDetHeader')[0];
-
+	
 		if(!this.catalog.hasOwnProperty(data.detail.id)){									// if an element is not already in the catalog
 			for (let i=0; i< actives.length; i++){
 				actives[i].classList.remove('active')										// we remove the previous active class of another element
@@ -226,20 +228,37 @@ export class AdvancedSheetHandler{
 	@Listen('buildView')
 	createView(data){
 		let self = this;
+		this.tableHeight = data.detail.tableHeight;
+		this.tableWidth = data.detail.tableWidth;
+
+		const trViewer = self.host.querySelector("tr");
+		const v = self.host.querySelector(".viewer") as HTMLElement;
+		const bClose = self.host.querySelector("div.closer");
+		const elem = this.host.getElementsByClassName("nglView")[0];
+		const blocker = self.host.getElementsByClassName('blocker')[0];
+		const canvas = elem.getElementsByTagName("canvas");
+		// Default
+		trViewer.style.display = "table-row";
+		v.style.display = "block";
+		bClose["style"] = `margin-top: 0px;position:relative`;
+		blocker["style"].display = "none";
+
   		if(this.nglview){																								// if we chose to represent the view
-  			let elem = this.host.getElementsByClassName("nglView")[0];
-  			let blocker = self.host.getElementsByClassName('blocker')[0];
-			let canvas = elem.getElementsByTagName("canvas");
+  			
 			if(canvas.length === 0)																					// if we don't have a view yet
-  				window["stage"] = new nglLib.Stage( elem, { backgroundColor: "lightgrey"} );						// we create it	
+  				window["stage"] = new nglLib.Stage( elem, { backgroundColor: "whitesmoke"} );						// we create it	
 
+			const nglViewH = 100*(data.detail.tableHeight) / 100;
+			const nglViewW = 90*(data.detail.tableWidth) / 100;
+			console.log(nglViewH, nglViewW, "<-- NGL DIM" );
+  			elem["style"]=`height:${nglViewH}px;width:${nglViewW}px;`
+  			//elem["style"]="width:" + this.innerWidth +"px;"
+			window["stage"].removeAllComponents();
 
-  			elem["style"]="height:"+(80*(data.detail.tableHeight))/100+"px;width:"+data.detail.tableWidth+"px;"
-  			window["stage"].removeAllComponents();
+			
+				
   			window["stage"].loadFile(data.detail.file)
-  			.then(function(component){
-
-  				blocker["style"].display = "none";
+  			.then(function(component){				
   				window["stage"].handleResize();  				
   				component.addRepresentation("ball+stick");
   				component.autoView();
@@ -247,9 +266,24 @@ export class AdvancedSheetHandler{
   			.catch(function(error){
   				console.log(error)
   				elem["style"].display="none";
-  				blocker["style"] = "display:inline-block;height:"+(80*(data.detail.tableHeight))/100+"px;width:"+data.detail.tableWidth+"px;"
-  				blocker.children[0]["textContent"]="Warning ! : "+ data.detail.file + " doesn't exists"
-  			});
+				
+				trViewer.style.display = "";
+				v.style.display = "";
+				bClose["style"] = "";
+  				if (self.no_pdb_mention ) {
+					blocker["style"] =`display:inline-block;border:none;height:${nglViewH}px;width:${nglViewW}px;`
+					blocker.children[0]["textContent"]="Warning ! : "+ data.detail.file + " doesn't exists"
+				} else {
+					trViewer.style.display = "none";
+					v.style.display = "none";
+					blocker["style"] =`display:none`;
+					
+					const offset = self.tableWidth - bClose.clientWidth;
+					bClose["style"] = `margin-top: -5px;position:absolute;left:${offset - 2}px`;
+
+				}
+			
+			});
 		}
 
   	}
@@ -365,6 +399,7 @@ export class AdvancedSheetHandler{
 	}*/
 
 	render(){
+		const self = this;
 		return(
 			<table>
 			<div class="sheetHandler container">
@@ -375,19 +410,20 @@ export class AdvancedSheetHandler{
 		    		<div class="tab-content allDetBody " id="DetContent">
 		    			<advanced-sheet max_char = {this.max_char} ></advanced-sheet>
 		    			<tr>
-		    				<div class="viewer">
+		    				<div class="viewer" 
+							style={{"min-width":`${self.tableWidth}px`, "max-width":`${self.tableWidth}px`}}
+							>
 		   						<div class="nglView " ><div class="downloadPdb"></div><div class="detView"></div></div>
    								<div class="blocker "><i class="fa fa-exclamation-triangle"></i></div>
    							</div>
    						</tr>
-						<tr>
-						<div class="closer pull-right alert alert-warning" role="alert" >Close</div>
+						<tr>					
+						<div class="closer pull-right" >Close</div>
 						</tr>
-   					</div>
-   				</div>
+					</div>
+				</div>
     		</div>
     		<div class = "shortentooltip"><p class="shortentooltiptext"></p></div>
-    		
     		</table>
 
 		);

@@ -12,10 +12,14 @@ div.sheetHandler ul.allDetHeader li.li-left-arrow a i.allDetheader-left-arrow{
     margin-left: 0.5em; 
 }
 
-div.sheetHandler div.row div.blocker {
+div.sheetHandler div.row div.blocker{
 	display: none;
-	background-color: lightgrey;
-
+	background-color: whitesmoke;
+    border-bottom: solid 1px rgb(183, 183, 183);
+    border-right:solid 1px rgb(183, 183, 183);
+    border-left:solid 1px rgb(183, 183, 183);
+    border-bottom-left-radius: 5px;
+    /*border-bottom-right-radius: 5px;*/
 }
 
 div.sheetHandler div.row div.blocker i.fa-exclamation-triangle{
@@ -26,6 +30,7 @@ div.sheetHandler div.row div.blocker i.fa-exclamation-triangle{
 div.viewer {
     display: block;
     text-align: center;
+    margin-top: -5px;
 }
 
 div.viewer div.blocker i.fa-exclamation-triangle{
@@ -52,18 +57,50 @@ table div.shortentooltip {
     visibility: hidden;
     /*display: inline-block;*/
     background-color: lightgrey;
-    border: 3px solid #73AD21;
+    border: 3px solid rgb(183, 183, 183);
 }
 
 table div.sheetHandler ul.allDetHeader {
     width: 601px;
+    visibility: hidden;
+}
+
+div.viewer {
+   /* min-width:450px;
+    max-width:450px;*/
+    background-color:whitesmoke;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    border-right: solid 1px rgb(183, 183, 183);
+    border-left:  solid 1px rgb(183, 183, 183);
+    border-bottom: solid 1px rgb(183, 183, 183);
+    border-bottom-left-radius: 2px;
+}
+
+div.nglView{
+/*    max-width:440px;*/
 }
 
 div.closer {
     padding-top: 0.25em;
     padding-bottom: 0.5em;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
     border-top: none;
     cursor: pointer;
+    border-left: solid 1px rgb(183, 183, 183);
+    border-right:solid 1px rgb(183, 183, 183);
+    border-bottom: solid 1px rgb(183, 183, 183);
+    background-color:whitesmoke;/*#b2222245;*/
+    color: rgb(183, 183, 183);
+    font-family: "Helvetica Neue";
+    font-weight:bold;
+    padding-left:0.5em;
+    padding-right:0.5em;
 }
+/*
+div.wrapper {
+    padding : 2em;
+    border-radius: 5px 5px 5px 5px;
+}
+*/
