@@ -233,20 +233,20 @@ export class AdvancedSheetHandler{
 
 		const trViewer = self.host.querySelector("tr");
 		const v = self.host.querySelector(".viewer") as HTMLElement;
-		const bClose = self.host.querySelector("div.closer");
+		//const bClose = self.host.querySelector("div.closer");
 		const elem = this.host.getElementsByClassName("nglView")[0];
 		const blocker = self.host.getElementsByClassName('blocker')[0];
 		const canvas = elem.getElementsByTagName("canvas");
 		// Default
 		trViewer.style.display = "table-row";
 		v.style.display = "block";
-		bClose["style"] = `margin-top: 0px;position:relative`;
+		//bClose["style"] = `margin-top: 0px;position:relative`;
 		blocker["style"].display = "none";
 
   		if(this.nglview){																								// if we chose to represent the view
   			
 			if(canvas.length === 0)																					// if we don't have a view yet
-  				window["stage"] = new nglLib.Stage( elem, { backgroundColor: "whitesmoke"} );						// we create it	
+  				window["stage"] = new nglLib.Stage( elem, { backgroundColor: "white"} );						// we create it	
 
 			const nglViewH = 100*(data.detail.tableHeight) / 100;
 			const nglViewW = 90*(data.detail.tableWidth) / 100;
@@ -269,7 +269,7 @@ export class AdvancedSheetHandler{
 				
 				trViewer.style.display = "";
 				v.style.display = "";
-				bClose["style"] = "";
+				//bClose["style"] = "";
   				if (self.no_pdb_mention ) {
 					blocker["style"] =`display:inline-block;border:none;height:${nglViewH}px;width:${nglViewW}px;`
 					blocker.children[0]["textContent"]="Warning ! : "+ data.detail.file + " doesn't exists"
@@ -278,8 +278,8 @@ export class AdvancedSheetHandler{
 					v.style.display = "none";
 					blocker["style"] =`display:none`;
 					
-					const offset = self.tableWidth - bClose.clientWidth;
-					bClose["style"] = `margin-top: -5px;position:absolute;left:${offset - 2}px`;
+					//const offset = self.tableWidth - bClose.clientWidth;
+					//bClose["style"] = `margin-top: -5px;position:absolute;left:${offset - 2}px`;
 
 				}
 			
@@ -399,14 +399,14 @@ export class AdvancedSheetHandler{
 	}*/
 
 	render(){
+		const headerMarkup = this.multi_view ? '<ul class="nav nav-tabs allDetHeader" ></ul>' : '';
 		const self = this;
 		return(
+			<div class="wrapper">
 			<table>
-			<div class="sheetHandler container">
-				<ul class="nav nav-tabs allDetHeader" >
-
-				</ul>
-				<div class="row">
+			<div class="sheetHandler">
+				{headerMarkup}
+				<div style={{display:"inline"}}>
 		    		<div class="tab-content allDetBody " id="DetContent">
 		    			<advanced-sheet max_char = {this.max_char} ></advanced-sheet>
 		    			<tr>
@@ -417,15 +417,13 @@ export class AdvancedSheetHandler{
    								<div class="blocker "><i class="fa fa-exclamation-triangle"></i></div>
    							</div>
    						</tr>
-						<tr>					
-						<div class="closer pull-right" >Close</div>
-						</tr>
 					</div>
+					<div class="closer pull-right" >Close</div>				
 				</div>
     		</div>
     		<div class = "shortentooltip"><p class="shortentooltiptext"></p></div>
     		</table>
-
+			</div>
 		);
 	}
 }
