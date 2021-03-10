@@ -41,7 +41,7 @@ export class AdvancedSheet{
   	}
 
   	componentDidUpdate(){
-  		console.log("update done")
+  		console.warn("advance-sheet did update");
   		let table = this.host.getElementsByClassName('infos')[0]
   		this.buildView.emit({"file":this.pdbFile,"tableHeight":table.clientHeight,"tableWidth":table.clientWidth})
   		let tooltipable = this.host.getElementsByClassName("tooltipable");
@@ -100,7 +100,7 @@ export class AdvancedSheet{
 
 
 	render(){
-		console.log("rendering")
+		console.log("rendering advanced-sheet")
 		let row = []
 		if (Object.keys(this.data).length >0){ 			// Because the data are loaded after the component is loaded for the first time 
 
@@ -129,12 +129,16 @@ export class AdvancedSheet{
 			this.dataDisplayed.emit({"id":properties["_id"],"data":properties,"pdbFile":this.pdbFile})
 
   		}
+
 		return(
 			<div class= "sheet-content" >
-				<table class="infos ">{row}</table>		
+				<table class="infos ">{row}</table>					
 			</div>
 
 		);
 		//this.load(this.data)
+	}
+	componentDidUnload() {
+		console.log('Advanced sheet has been removed from the DOM');
 	}
 }

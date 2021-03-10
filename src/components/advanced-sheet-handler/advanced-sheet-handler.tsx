@@ -21,13 +21,15 @@ export class AdvancedSheetHandler{
 	@Element() host: HTMLElement;
 	@State() visible_start = 0;
 	@Prop() nglview: boolean;
+	@Prop() multi_view: boolean;
 	@State() deleteOrClickNav: boolean = false;  // boolean to know if a sheet has been added
 	@Prop() max_char = 40;
-
 
 	@Listen('dataDisplayed')
 	updateHandler(data){
 		console.log("dataDisplayed")
+		if(!this.multi_view)
+			return;
 		let self = this;
 		let actives = this.host.getElementsByClassName('active');
 		let to_update = this.host.getElementsByClassName('allDetHeader')[0];
@@ -48,6 +50,7 @@ export class AdvancedSheetHandler{
 			cross.className ="fa fa-times fa-lg fa-pull-right";
 			removeElem.appendChild(cross);
 			removeElem.addEventListener('click',function(event){
+				console.warn("Delete");
 				event.stopPropagation()
 				self.deleteOrClickNav = true;
 				let navItems = self.host.getElementsByClassName('nav-item');
@@ -56,6 +59,7 @@ export class AdvancedSheetHandler{
 				let right_arrow = self.host.getElementsByClassName("li-right-arrow")[0];
 				let left_arrow = self.host.getElementsByClassName("li-left-arrow")[0];
 				let nextDet = to_delete.nextSibling;
+
 				if(to_delete===active){
 					if(nextDet === right_arrow){
 						if(to_delete.previousSibling !==self.host.getElementsByClassName("li-left-arrow")[0]){
@@ -75,10 +79,13 @@ export class AdvancedSheetHandler{
 					//console.log(self.visible_start)
 					navItems[self.visible_start]["style"].display="block";
 				}
+				console.log(to_delete);
  				to_delete.remove()															// we remove the li corresponding to the element we want to remove
 				delete self.catalog[event.target["parentNode"]["parentNode"].text]			// we also delete it in the catalog.
 				self.showItems()
 				self.arrowsHandler()
+				if( Object.keys(self.catalog).length === 0 )
+					console.log("Empty");
 			})
 
 			/********************************************************************/
@@ -332,8 +339,30 @@ export class AdvancedSheetHandler{
 		}
 	}
 
+	componentDidUnload() {
+		console.warn('Advanced sheet handler has been removed from the DOM');
+	}
 
+	componentDidLoad() {
+		let self = this;
+	//	console.warn('Advanced sheet handle did load');
+		const closeBut = this.host.querySelector("div.closer");
+	//	console.dir(closeBut);
+		closeBut.addEventListener('click', () => {
+			self.host.remove();
+		});
+	}
+	/*componentDidUpdate() {
+		console.warn('Advanced sheet handle has been updated');
+		const closeBut = this.host.querySelector("div.closer");
+		console.dir(closeBut);
+	}*/
+	/*componentDidRender() {
+	console.warn('Advanced sheet handle has been rendered');
+	const closeBut = this.host.querySelector("div.closer");
+	console.dir(closeBut);
 
+	}*/
 
 	render(){
 		return(
@@ -351,6 +380,9 @@ export class AdvancedSheetHandler{
    								<div class="blocker "><i class="fa fa-exclamation-triangle"></i></div>
    							</div>
    						</tr>
+						<tr>
+						<div class="closer pull-right alert alert-warning" role="alert" >Close</div>
+						</tr>
    					</div>
    				</div>
     		</div>

@@ -40,6 +40,7 @@ declare global {
     export interface AdvancedSheetHandlerAttributes extends HTMLAttributes {
       max_char?: number;
       max_window?: number;
+      multi_view?: boolean;
       nglview?: boolean;
       pdbFile?: string;
     }

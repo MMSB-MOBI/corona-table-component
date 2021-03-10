@@ -58,3 +58,12 @@ table div.shortentooltip {
 table div.sheetHandler ul.allDetHeader {
     width: 601px;
 }
+
+div.closer {
+    padding-top: 0.25em;
+    padding-bottom: 0.5em;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+    cursor: pointer;
+}

@@ -4,8 +4,8 @@
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "private": false,
-  "version": "0.1.0",
-  "description": "prototype for advanced-sheet-handler",
+  "version": "0.5.0",
+  "description": "Data card for detegent molecule in the detbelt WS",
   "files": [
     "dist/"
   ],
@@ -30,12 +30,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SebDelSab/advanced-sheet.git"
+    "url": "git+https://github.com/MMSB-MOBI/corona-table-component"
   },
   "author": "sdelolme",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SebDelSab/advanced-sheet"
+    "url": "https://github.com/MMSB-MOBI/corona-table-component"
   },
   "keywords": [
     "javascript",
@@ -44,7 +44,7 @@
     "ngl",
     "molecular structure"
   ],
-  "homepage": "https://github.com/SebDelSab/advanced-sheet",
+  "homepage": "https://github.com/MMSB-MOBI/corona-table-component",
   "jest": {
     "transform": {
       "^.+\\.(ts|tsx)$": "<rootDir>/node_modules/@stencil/core/testing/jest.preprocessor.js"
