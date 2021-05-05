@@ -92,7 +92,10 @@ export class AdvancedSheet{
 			//value.classList.add("tooltipable")
 			props["content"] = string 
 			//value.textContent = string.substr(0,this.max_char)+"..."
-			return <td class = "tooltipable" {...props}>{string.substr(0,this.max_char)+"..."}</td>
+			
+			return <td class="td-large">
+				<input class="input-large" type="text" value={string} readonly></input>
+			</td>
 		}
 		else{
 			return <td >{string}</td>
@@ -111,9 +114,7 @@ export class AdvancedSheet{
 			row = keys.map((e) => {
 				if(e=="color"){
 					console.log("this is color", e);
-					console.dir(properties[e]);
 					const styColor = `rgb(${properties[e][0]},${properties[e][1]},${properties[e][2]})`;
-					console.log(styColor);
 					return <tr><td>{e}</td>
 						<td><div class="rectangle" style={{'background-color' : styColor}}>							
 						</div></td></tr>

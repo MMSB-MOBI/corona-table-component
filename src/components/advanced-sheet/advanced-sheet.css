@@ -39,6 +39,14 @@ div.sheet-content table.infos tr td{
   /*  background-color: rgb(0, 255, 0) ;*/
 }
 
+.input-large{
+    padding-left:0.5em;
+}
+
+.td-large{
+    padding-left:0 !important; 
+}
+
 
 /*
 div.row{
