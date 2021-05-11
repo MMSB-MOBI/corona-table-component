@@ -118,7 +118,7 @@ export class AdvancedSheet{
 					console.log("stylColor", styColor); 
 					console.log(properties[e]); 
 					return <tr><td>{e}</td>
-						<td><div class="rectangle" style={{'background-color' : styColor}}>							
+						<td><div class="rectangle" style={{'background-color' : properties[e]}}>							
 						</div></td></tr>
 				}
 				if(e!="pdbFile"){
