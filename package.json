@@ -4,7 +4,7 @@
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "private": false,
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Data card for detegent molecule in the detbelt WS",
   "files": [
     "dist/"
