@@ -116,6 +116,7 @@ export class AdvancedSheet{
 					console.log("this is color", e);
 					const styColor = `rgb(${properties[e][0]},${properties[e][1]},${properties[e][2]})`;
 					console.log("stylColor", styColor); 
+					console.log(properties[e]); 
 					return <tr><td>{e}</td>
 						<td><div class="rectangle" style={{'background-color' : styColor}}>							
 						</div></td></tr>
